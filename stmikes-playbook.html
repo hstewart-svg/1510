@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>St. Mike's Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D2145;--navy2:#163068;--navy3:#1E3D7A;--teal:#1A7A7A;--teal2:#229090;--teal3:#2AACAC;--teallt:#E6F5F5;--white:#FFFFFF;--offwhite:#F2F1ED;--surface:#FFFFFF;--gray:#686866;--gray2:#ABABAB;--dark:#0F0F0E;--green:#1A6B38;--green2:#22A350;--red:#C0392B;--r:16px;--rsm:10px;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{overscroll-behavior:none;}
+body{font-family:'Barlow',sans-serif;background:var(--offwhite);color:var(--dark);min-height:100vh;max-width:430px;margin:0 auto;padding-bottom:90px;overflow-x:hidden;}
+.screen{display:none;min-height:100vh;}.screen.active{display:block;}
+.app-header{background:var(--navy);padding:54px 20px 18px;position:relative;overflow:hidden;}
+.hdr-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--teal) 0%,var(--teal3) 50%,var(--teal) 100%);}
+.hdr-wm{position:absolute;right:-14px;top:6px;font-family:'Bebas Neue',sans-serif;font-size:148px;line-height:1;color:rgba(255,255,255,0.04);pointer-events:none;user-select:none;}
+.hdr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1;}
+.app-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);letter-spacing:2px;line-height:1;}
+.app-logo-sub{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;color:var(--teal3);letter-spacing:3px;text-transform:uppercase;margin-top:2px;}
+.jersey-pill{background:var(--teal);border:2px solid var(--teal3);border-radius:100px;padding:6px 14px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--white);cursor:pointer;transition:transform 0.12s;display:flex;align-items:center;gap:6px;}
+.jersey-pill:active{transform:scale(0.93);}
+.jp-pos{font-size:11px;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:1px;color:var(--teal3);}
+.hdr-player{position:relative;z-index:1;}
+.player-name{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;color:var(--white);letter-spacing:1px;line-height:1.1;}
+.player-name em{color:var(--teal3);font-style:normal;}
+.player-sub{font-size:13px;color:rgba(255,255,255,0.6);margin-top:3px;}
+.xp-zone{background:var(--navy2);padding:14px 20px 18px;border-bottom:3px solid var(--teal);}
+.xp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.xp-lbl{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;color:rgba(255,255,255,0.55);text-transform:uppercase;}
+.xp-num{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--teal3);}
+.xp-track{background:rgba(255,255,255,0.12);border-radius:4px;height:10px;overflow:hidden;}
+.xp-fill{background:linear-gradient(90deg,var(--teal) 0%,var(--teal3) 100%);height:100%;border-radius:4px;transition:width 0.7s cubic-bezier(0.34,1.56,0.64,1);min-width:4px;}
+.rank-strip{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap;}
+.rchip{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:100px;padding:5px 12px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;color:rgba(255,255,255,0.8);}
+.rchip.tc{background:rgba(26,122,122,0.35);border-color:var(--teal);color:var(--teal3);}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:var(--navy);border-top:3px solid var(--teal);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px);}
+.nav-btn{flex:1;padding:10px 0 12px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;border:none;background:none;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);transition:color 0.15s;}
+.nav-btn.active{color:var(--teal3);}
+.nav-icon{font-size:22px;line-height:1;}
+.intro-banner{margin:16px 16px 4px;background:var(--navy);border-radius:var(--r);border-left:5px solid var(--teal);padding:14px 16px;display:flex;align-items:center;gap:14px;}
+.ib-icon{font-size:30px;flex-shrink:0;}
+.ib-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;color:var(--teal3);}
+.ib-desc{font-size:13px;color:rgba(255,255,255,0.65);margin-top:2px;line-height:1.45;}
+.phase-hdr{padding:18px 20px 6px;display:flex;align-items:center;gap:10px;}
+.phase-bar{width:4px;height:26px;border-radius:2px;flex-shrink:0;}
+.phase-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1.5px;color:var(--navy);}
+.phase-badge{margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:var(--navy);color:var(--teal3);border-radius:100px;padding:3px 10px;}
+.task-card{margin:0 14px 10px;background:var(--surface);border-radius:var(--r);border:1.5px solid rgba(0,0,0,0.07);border-left:4px solid var(--navy2);overflow:hidden;cursor:pointer;transition:transform 0.1s;box-shadow:0 2px 8px rgba(13,33,69,0.07);}
+.task-card:active{transform:scale(0.975);}
+.task-card.done{background:#F3FCF8;border-left-color:var(--green2);border-color:rgba(34,163,80,0.2);}
+.task-card.urgent{border-left-color:var(--red);}
+.ti{display:flex;align-items:flex-start;padding:13px;gap:11px;}
+.tc-emoji{font-size:24px;flex-shrink:0;margin-top:1px;}
+.tc-body{flex:1;min-width:0;}
+.tc-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.3px;color:var(--dark);line-height:1.25;margin-bottom:3px;}
+.task-card.done .tc-title{color:var(--gray);text-decoration:line-through;text-decoration-color:var(--gray2);}
+.tc-desc{font-size:13px;color:var(--gray);line-height:1.45;}
+.tc-quip{font-size:12px;color:var(--teal);font-style:italic;margin-top:5px;}
+.tc-meta{display:flex;align-items:center;gap:6px;margin-top:7px;flex-wrap:wrap;}
+.tc-xp{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.5px;background:rgba(26,122,122,0.12);color:var(--teal);padding:2px 9px;border-radius:100px;}
+.tc-date{font-size:11px;color:var(--gray2);}
+.tc-wb{font-size:11px;color:var(--green2);font-weight:600;}
+.tc-check{width:28px;height:28px;border-radius:50%;border:2.5px solid var(--gray2);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all 0.2s;font-size:14px;}
+.task-card.done .tc-check{background:var(--green2);border-color:var(--green2);color:white;}
+.pitch-div{margin:4px 16px 0;height:3px;background:repeating-linear-gradient(90deg,var(--teal) 0,var(--teal) 10px,transparent 10px,transparent 16px);opacity:0.2;border-radius:2px;}
+.dash-section-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;color:var(--navy);padding:16px 16px 6px;}
+.ring-card{margin:14px 16px 0;background:var(--surface);border-radius:var(--r);border:1.5px solid rgba(0,0,0,0.07);box-shadow:0 2px 8px rgba(13,33,69,0.06);padding:20px 16px;display:flex;align-items:center;gap:20px;}
+.ring-wrap{position:relative;width:96px;height:96px;flex-shrink:0;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.ring-pct{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--teal);letter-spacing:1px;line-height:1;}
+.ring-sub-lbl{font-size:10px;color:var(--gray2);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.ring-rank{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.ring-xp{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--teal);letter-spacing:1px;line-height:1;}
+.ring-xp-sub{font-size:11px;color:var(--gray2);margin-top:1px;}
+.ring-next{font-size:12px;color:var(--teal);font-style:italic;margin-top:8px;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px;margin-top:10px;}
+.stat-card{background:var(--surface);border-radius:var(--rsm);padding:12px 10px;border:1.5px solid rgba(0,0,0,0.07);text-align:center;}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--navy);line-height:1;}
+.stat-val.tc{color:var(--teal);}.stat-val.gn{color:var(--green2);}
+.stat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray2);margin-top:3px;}
+.pbd-wrap{margin:0 16px;}
+.pbd-row{margin-bottom:12px;}
+.pbd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+.pbd-nm{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;color:var(--dark);}
+.pbd-ct{font-size:12px;color:var(--gray);}
+.pbd-track{background:rgba(0,0,0,0.08);border-radius:4px;height:9px;overflow:hidden;}
+.pbd-fill{height:100%;border-radius:4px;transition:width 0.5s ease;}
+.unlock-strip{margin:10px 16px 0;background:rgba(26,122,122,0.1);border:1.5px solid rgba(26,122,122,0.3);border-radius:var(--rsm);padding:10px 14px;display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:var(--teal);}
+.track-card{margin:10px 16px;background:var(--surface);border-radius:var(--r);overflow:hidden;border:1.5px solid rgba(0,0,0,0.07);}
+.track-head{background:var(--navy);padding:12px 16px;display:flex;align-items:center;gap:8px;}
+.track-lbl{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1.5px;color:var(--teal3);}
+.trow{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid rgba(0,0,0,0.05);}
+.trow:last-child{border-bottom:none;}
+.trow-icon{font-size:18px;}.trow-lbl{font-size:14px;color:var(--dark);flex:1;}
+.chip{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:100px;}
+.ch-n{background:rgba(13,33,69,0.1);color:var(--navy2);}.ch-t{background:rgba(26,122,122,0.12);color:var(--teal);}.ch-g{background:rgba(26,107,56,0.12);color:var(--green);}
+.qr-hdr{background:var(--teal);padding:54px 20px 20px;position:relative;overflow:hidden;}
+.qr-hdr::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--navy);}
+.qr-title{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;color:white;}
+.qr-sub{font-size:13px;color:rgba(255,255,255,0.75);margin-top:3px;line-height:1.4;}
+.qr-main{margin:14px 16px;background:var(--surface);border-radius:var(--r);overflow:hidden;border:1.5px solid rgba(0,0,0,0.07);}
+.qr-inner{padding:22px;text-align:center;}
+.qr-frame{background:white;border:2px solid rgba(0,0,0,0.1);border-radius:var(--rsm);display:inline-block;padding:14px;margin-bottom:14px;}
+.qr-desc{font-size:14px;color:var(--gray);line-height:1.5;}
+.qr-desc strong{color:var(--dark);}
+.qr-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px;}
+.qtag{background:var(--teallt);color:var(--teal);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.5px;padding:4px 12px;border-radius:100px;border:1px solid rgba(26,122,122,0.25);}
+.lbtn{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 16px 10px;padding:15px;border-radius:var(--rsm);font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;color:white;text-decoration:none;transition:opacity 0.15s;}
+.lbtn:active{opacity:0.82;}
+.lbtn.nv{background:var(--navy);}.lbtn.tl{background:var(--teal);}.lbtn.t2{background:var(--teal2);}.lbtn.gn{background:var(--green);}
+.dq-card{margin:0 16px 14px;background:var(--surface);border-radius:var(--r);padding:16px;border:1.5px solid rgba(0,0,0,0.07);}
+.dq-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1.5px;color:var(--navy);margin-bottom:10px;}
+.dq-row{display:flex;align-items:baseline;gap:10px;font-size:13px;line-height:2;}
+.dq-dt{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--teal);min-width:90px;}
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:var(--navy);color:white;padding:11px 20px;border-radius:100px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;z-index:200;opacity:0;pointer-events:none;transition:opacity 0.22s;white-space:nowrap;max-width:92vw;border-top:2px solid var(--teal);}
+.toast.show{opacity:1;}
+.cfp{position:fixed;pointer-events:none;z-index:300;animation:cffall 1.3s ease-out forwards;}
+@keyframes cffall{0%{transform:translateY(-10px) rotate(0deg);opacity:1;}100%{transform:translateY(100vh) rotate(800deg);opacity:0;}}
+</style>
+</head>
+<body>
+
+<!-- PLAYBOOK -->
+<div id="screen-playbook" class="screen active">
+  <div class="app-header">
+    <div class="hdr-bar"></div><div class="hdr-wm">10</div>
+    <div class="hdr-top">
+      <div><div class="app-logo">ST. MIKE'S PLAYBOOK</div><div class="app-logo-sub">University of Toronto · 2026</div></div>
+      <div class="jersey-pill" onclick="showToast('🏉 #10 Fly-Half — reads the field, makes the call!')"><span class="jp-pos">FLY-HALF</span>#10</div>
+    </div>
+    <div class="hdr-player">
+      <div class="player-name">WILL'S <em>FIRST XV</em></div>
+      <div class="player-sub">St. Michael's College · Economics · Class of 2030 🎓</div>
+    </div>
+  </div>
+  <div class="xp-zone">
+    <div class="xp-top"><span class="xp-lbl">⚡ Season XP</span><span class="xp-num" id="xp-display">0 / 1050 XP</span></div>
+    <div class="xp-track"><div class="xp-fill" id="xp-bar" style="width:0%"></div></div>
+    <div class="rank-strip"><div class="rchip tc" id="rank-chip">🏉 Rookie Prop</div><div class="rchip" id="done-chip">0 tasks done</div></div>
+  </div>
+  <div class="intro-banner">
+    <span class="ib-icon">📋</span>
+    <div><div class="ib-title">THE PLAYBOOK</div><div class="ib-desc">Tap each task to tick it off. Stack XP. Level up your rank. No cap, no excuses — let's ball. 🏉</div></div>
+  </div>
+  <div class="phase-hdr"><div class="phase-bar" style="background:#C0392B;"></div><div class="phase-title">🔴 What To Do NOW</div><div class="phase-badge" style="background:#C0392B;">URGENT</div></div>
+  <div id="tasks-now"></div>
+  <div class="pitch-div"></div>
+  <div class="phase-hdr"><div class="phase-bar" style="background:var(--navy2);"></div><div class="phase-title">📅 March</div><div class="phase-badge">LOCK IT IN</div></div>
+  <div id="tasks-march"></div>
+  <div class="pitch-div"></div>
+  <div class="phase-hdr"><div class="phase-bar" style="background:var(--teal);"></div><div class="phase-title">📅 April</div><div class="phase-badge" style="background:var(--teal);">HIT YOUR STRIDE</div></div>
+  <div id="tasks-april"></div>
+  <div class="pitch-div"></div>
+  <div class="phase-hdr"><div class="phase-bar" style="background:var(--navy3);"></div><div class="phase-title">📅 May</div><div class="phase-badge">GAINING PACE</div></div>
+  <div id="tasks-may"></div>
+  <div class="pitch-div"></div>
+  <div class="phase-hdr"><div class="phase-bar" style="background:var(--teal2);"></div><div class="phase-title">📅 June</div><div class="phase-badge" style="background:var(--teal2);">SUMMER RUN</div></div>
+  <div id="tasks-june"></div>
+  <div class="pitch-div"></div>
+  <div class="phase-hdr"><div class="phase-bar" style="background:var(--navy2);"></div><div class="phase-title">📅 July</div><div class="phase-badge">FULL SPRINT</div></div>
+  <div id="tasks-july"></div>
+  <div class="pitch-div"></div>
+  <div class="phase-hdr"><div class="phase-bar" style="background:var(--teal);"></div><div class="phase-title">📅 August</div><div class="phase-badge" style="background:var(--teal);">FINAL WHISTLE PREP</div></div>
+  <div id="tasks-august"></div>
+  <div class="pitch-div"></div>
+  <div class="phase-hdr"><div class="phase-bar" style="background:var(--green2);"></div><div class="phase-title">🏟️ September</div><div class="phase-badge" style="background:var(--green2);">GAME DAY 🎉</div></div>
+  <div id="tasks-september"></div>
+  <div style="height:20px;"></div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="screen-dashboard" class="screen">
+  <div class="app-header">
+    <div class="hdr-bar"></div><div class="hdr-wm">15</div>
+    <div class="hdr-top">
+      <div><div class="app-logo">ST. MIKE'S PLAYBOOK</div><div class="app-logo-sub">Progress Dashboard</div></div>
+      <div class="jersey-pill" onclick="showToast('🏉 #15 Fullback — big vision, last line, clutch!')"><span class="jp-pos">FULLBACK</span>#15</div>
+    </div>
+    <div class="hdr-player">
+      <div class="player-name">SEASON <em>PROGRESS</em></div>
+      <div class="player-sub">St. Mike's · Economics · Defy Gravity 🔵</div>
+    </div>
+  </div>
+  <div class="xp-zone">
+    <div class="xp-top"><span class="xp-lbl">⚡ Season XP</span><span class="xp-num" id="db-xp-display">0 / 1050 XP</span></div>
+    <div class="xp-track"><div class="xp-fill" id="db-xp-bar" style="width:0%"></div></div>
+  </div>
+  <div class="ring-card">
+    <div class="ring-wrap">
+      <svg width="96" height="96" viewBox="0 0 96 96">
+        <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="10"/>
+        <circle id="ring-circle" cx="48" cy="48" r="40" fill="none" stroke="url(#rg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 0.8s cubic-bezier(0.34,1.2,0.64,1)"/>
+        <defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1A7A7A"/><stop offset="100%" stop-color="#2AACAC"/></linearGradient></defs>
+      </svg>
+      <div class="ring-center"><div class="ring-pct" id="ring-pct">0%</div><div class="ring-sub-lbl">done</div></div>
+    </div>
+    <div>
+      <div class="ring-rank" id="db-rank">🏉 Rookie Prop</div>
+      <div class="ring-xp" id="db-xp-big">0 <span style="font-size:14px;color:var(--gray2);">XP</span></div>
+      <div class="ring-xp-sub">banked this season</div>
+      <div class="ring-next" id="db-next-unlock"></div>
+    </div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-val gn" id="db-done">0</div><div class="stat-lbl">Tasks<br>Done</div></div>
+    <div class="stat-card"><div class="stat-val" id="db-remaining">0</div><div class="stat-lbl">Tasks<br>Left</div></div>
+    <div class="stat-card"><div class="stat-val tc" id="db-phases">0/8</div><div class="stat-lbl">Phases<br>Clear</div></div>
+  </div>
+  <div class="unlock-strip"><span style="font-size:20px;">🔓</span><span id="next-unlock-txt">Complete 5 tasks to unlock your next rank!</span></div>
+  <div class="dash-section-title">PHASE BREAKDOWN</div>
+  <div class="pbd-wrap" id="phase-breakdown"></div>
+  <div class="track-card">
+    <div class="track-head"><span style="font-size:18px;">📊</span><span class="track-lbl">WILL'S ACADEMIC TRACK</span></div>
+    <div>
+      <div class="trow"><span class="trow-icon">🎓</span><span class="trow-lbl">Year 1 — Economics (A&S)</span><span class="chip ch-n">LOCKED IN</span></div>
+      <div class="trow"><span class="trow-icon">📈</span><span class="trow-lbl">Rotman Commerce Transfer</span><span class="chip ch-t">GRADE DEPENDENT</span></div>
+      <div class="trow"><span class="trow-icon">⚜️</span><span class="trow-lbl">St. Michael's College</span><span class="chip ch-t">ST. MIKE'S</span></div>
+      <div class="trow"><span class="trow-icon">📅</span><span class="trow-lbl">First day of class</span><span class="chip ch-g">SEP 8, 2026</span></div>
+      <div class="trow"><span class="trow-icon">💡</span><span class="trow-lbl">Rotman transfer target</span><span class="chip ch-n">B+ OR BETTER</span></div>
+    </div>
+  </div>
+  <div style="height:20px;"></div>
+</div>
+
+<!-- GUIDE -->
+<div id="screen-guide" class="screen">
+  <div class="qr-hdr">
+    <div class="qr-title">📚 A&S NEW STUDENT GUIDE</div>
+    <div class="qr-sub">Official UofT orientation materials — straight from the mailer. Scan or tap. 📱</div>
+  </div>
+  <div class="qr-main">
+    <div class="qr-inner">
+      <div class="qr-frame">
+        <svg width="156" height="156" viewBox="0 0 156 156" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+          <rect width="156" height="156" fill="white"/>
+          <rect x="8" y="8" width="48" height="48" rx="4" fill="#0D2145"/><rect x="15" y="15" width="34" height="34" rx="2" fill="white"/><rect x="21" y="21" width="22" height="22" rx="1" fill="#0D2145"/>
+          <rect x="100" y="8" width="48" height="48" rx="4" fill="#0D2145"/><rect x="107" y="15" width="34" height="34" rx="2" fill="white"/><rect x="113" y="21" width="22" height="22" rx="1" fill="#0D2145"/>
+          <rect x="8" y="100" width="48" height="48" rx="4" fill="#0D2145"/><rect x="15" y="107" width="34" height="34" rx="2" fill="white"/><rect x="21" y="113" width="22" height="22" rx="1" fill="#0D2145"/>
+          <rect x="64" y="8" width="7" height="7" fill="#0D2145"/><rect x="75" y="8" width="7" height="7" fill="#0D2145"/><rect x="86" y="8" width="7" height="7" fill="#1A7A7A"/>
+          <rect x="64" y="19" width="7" height="7" fill="#1A7A7A"/><rect x="86" y="19" width="7" height="7" fill="#0D2145"/>
+          <rect x="64" y="30" width="7" height="7" fill="#0D2145"/><rect x="75" y="30" width="7" height="7" fill="#1A7A7A"/>
+          <rect x="64" y="64" width="7" height="7" fill="#0D2145"/><rect x="75" y="64" width="7" height="7" fill="#1A7A7A"/><rect x="86" y="64" width="7" height="7" fill="#0D2145"/><rect x="97" y="64" width="7" height="7" fill="#1A7A7A"/><rect x="108" y="64" width="7" height="7" fill="#0D2145"/><rect x="119" y="64" width="7" height="7" fill="#1A7A7A"/><rect x="130" y="64" width="7" height="7" fill="#0D2145"/><rect x="141" y="64" width="7" height="7" fill="#1A7A7A"/>
+          <rect x="64" y="75" width="7" height="7" fill="#1A7A7A"/><rect x="86" y="75" width="7" height="7" fill="#0D2145"/><rect x="108" y="75" width="7" height="7" fill="#1A7A7A"/><rect x="130" y="75" width="7" height="7" fill="#0D2145"/>
+          <rect x="64" y="86" width="7" height="7" fill="#0D2145"/><rect x="75" y="86" width="7" height="7" fill="#1A7A7A"/><rect x="97" y="86" width="7" height="7" fill="#0D2145"/><rect x="119" y="86" width="7" height="7" fill="#1A7A7A"/><rect x="141" y="86" width="7" height="7" fill="#0D2145"/>
+          <rect x="64" y="97" width="7" height="7" fill="#1A7A7A"/><rect x="86" y="97" width="7" height="7" fill="#0D2145"/><rect x="108" y="97" width="7" height="7" fill="#1A7A7A"/><rect x="130" y="97" width="7" height="7" fill="#0D2145"/>
+          <rect x="64" y="108" width="7" height="7" fill="#0D2145"/><rect x="75" y="108" width="7" height="7" fill="#1A7A7A"/><rect x="97" y="108" width="7" height="7" fill="#0D2145"/><rect x="119" y="108" width="7" height="7" fill="#0D2145"/><rect x="141" y="108" width="7" height="7" fill="#1A7A7A"/>
+          <rect x="64" y="119" width="7" height="7" fill="#1A7A7A"/><rect x="86" y="119" width="7" height="7" fill="#0D2145"/><rect x="108" y="119" width="7" height="7" fill="#1A7A7A"/><rect x="130" y="119" width="7" height="7" fill="#0D2145"/>
+          <rect x="64" y="130" width="7" height="7" fill="#0D2145"/><rect x="75" y="130" width="7" height="7" fill="#0D2145"/><rect x="97" y="130" width="7" height="7" fill="#1A7A7A"/><rect x="119" y="130" width="7" height="7" fill="#0D2145"/><rect x="141" y="130" width="7" height="7" fill="#1A7A7A"/>
+          <rect x="64" y="141" width="7" height="7" fill="#1A7A7A"/><rect x="86" y="141" width="7" height="7" fill="#0D2145"/><rect x="108" y="141" width="7" height="7" fill="#0D2145"/><rect x="130" y="141" width="7" height="7" fill="#1A7A7A"/><rect x="141" y="141" width="7" height="7" fill="#0D2145"/>
+          <rect x="66" y="66" width="24" height="24" rx="4" fill="#1A7A7A"/>
+          <text x="78" y="83" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="serif">U</text>
+        </svg>
+      </div>
+      <div class="qr-desc"><strong>A&S New Student Guide 2026–27</strong><br>Everything before September — deadlines, registration, orientation, and more.</div>
+      <div class="qr-tags"><span class="qtag">📅 2026–27</span><span class="qtag">⚜️ St. Mike's</span><span class="qtag">💰 Fees &amp; deadlines</span><span class="qtag">🏛️ A&S Faculty</span></div>
+    </div>
+  </div>
+  <a class="lbtn nv" href="https://www.artsci.utoronto.ca/current/academic-advising-and-support/new-student-guide" target="_blank">🔗 A&S New Student Guide ↗</a>
+  <a class="lbtn tl" href="https://www.stmikes.utoronto.ca/life-at-st-mikes/orientation" target="_blank">⚜️ St. Mike's Orientation ↗</a>
+  <a class="lbtn t2" href="https://acorn.utoronto.ca" target="_blank">🎓 ACORN — Course Enrolment ↗</a>
+  <a class="lbtn nv" href="https://joinuoft.utoronto.ca" target="_blank">✅ JOIN U of T Portal ↗</a>
+  <a class="lbtn gn" href="https://residence.utoronto.ca" target="_blank">🏠 Residence Application ↗</a>
+  <div class="dq-card">
+    <div class="dq-title">KEY DEADLINES AT A GLANCE</div>
+    <div class="dq-row"><span class="dq-dt">March 31</span><span>🔴 Residence application</span></div>
+    <div class="dq-row"><span class="dq-dt">June 1</span><span>🟠 Offer acceptance (Ontario)</span></div>
+    <div class="dq-row"><span class="dq-dt">Mid-July</span><span>🟡 Course enrolment opens (ACORN)</span></div>
+    <div class="dq-row"><span class="dq-dt">August 11</span><span>🟡 Pay or defer fees</span></div>
+    <div class="dq-row"><span class="dq-dt">Sep 8, 2026</span><span>🟢 First day of class 🎓</span></div>
+  </div>
+  <div style="height:20px;"></div>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-btn active" id="nav-playbook" onclick="switchScreen('playbook')"><span class="nav-icon">📋</span>PLAYBOOK</button>
+  <button class="nav-btn" id="nav-dashboard" onclick="switchScreen('dashboard')"><span class="nav-icon">🏆</span>PROGRESS</button>
+  <button class="nav-btn" id="nav-guide" onclick="switchScreen('guide')"><span class="nav-icon">📚</span>GUIDE</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+const TASKS={now:[{id:'n1',title:'Accept Your Offer',desc:'Log in to JOIN U of T and accept by the deadline in your offer letter.',emoji:'✅',xp:80,date:'ASAP',quip:'First play of the match — do it now, no cap.',urgent:true},{id:'n2',title:'Confirm Your Fees',desc:'Pay your admission deposit if required. Get this sorted early.',emoji:'💳',xp:60,date:'ASAP',quip:'Sorted finances = sorted mind. Lowkey essential.',urgent:true},{id:'n3',title:'Review Required Documents (Non-Ontario)',desc:'Ensure all final docs are submitted by deadline in your JOIN U of T portal.',emoji:'📄',xp:50,date:'ASAP',quip:'Paperwork is the most clutch part. Just do it.',urgent:true},{id:'n4',title:'Stay Connected — Add UofT to Safe Senders',desc:'Add @utoronto.ca to your email safe senders. Miss one email = miss a deadline.',emoji:'📧',xp:30,date:'ASAP',quip:'Emails hit different when you actually see them.'}],march:[{id:'m1',title:'Apply for Residence',desc:'Submit by March 31 at residence.utoronto.ca. Optional but a serious W for the full St. Mike\'s experience.',emoji:'🏠',xp:70,date:'Mar 31',quip:'Living on campus hits different. Apply before it sells out.'},{id:'m2',title:'Consider First-Year Foundations Program',desc:'Some FYF courses require early application. Optional but genuinely useful for year one.',emoji:'📖',xp:40,date:'March',quip:'Lowkey one of the better moves you can make.'}],april:[{id:'a1',title:'Visit St. Michael\'s College Website',desc:'Find info on Welcome Day, FYF courses, summer info sessions, and orientation sign-up.',emoji:'⚜️',xp:40,date:'April',quip:'Your college page is your new best friend. Bookmark it.'},{id:'a2',title:'Get Involved — Explore Student Life',desc:'Check out sports and extracurriculars through UofT Student Life. Rugby club? 👀',emoji:'🏉',xp:50,date:'April',quip:'Get involved early — that\'s how St. Mike\'s legends are made.'}],may:[{id:'my1',title:'Accept Your Offer (Non-Ontario)',desc:'Accept via OUAC portal by May 1 or the date listed in your offer letter.',emoji:'✅',xp:80,date:'May 1',quip:'Your ticket to the pitch. Don\'t fumble it.'},{id:'my2',title:'Start Researching Courses',desc:'The 2026–27 Academic Calendar drops mid-May. Build your Economics lineup.',emoji:'📊',xp:50,date:'Mid-May',quip:'Economics first. Rotman transfer energy. Let\'s go.'},{id:'my3',title:'Watch for Arrive Ready Invitation',desc:'Check email for your Arrive Ready mentor message — a real unlock for year one.',emoji:'🔓',xp:40,date:'May',quip:'Your mentor is your personal coach. Don\'t ghost them.'}],june:[{id:'j1',title:'Accept Your Offer (Ontario)',desc:'Accept via OUAC portal by June 1. This is the one — do not drop the ball.',emoji:'🎯',xp:80,date:'Jun 1',quip:'The pitch is calling. Accept and let\'s get it.',urgent:true},{id:'j2',title:'Watch for Residence Placement',desc:'Residence emails go out June–August. Accept placement and pay fees by listed deadline.',emoji:'🏠',xp:60,date:'Jun–Aug',quip:'Snagging a good room is a real-life power move.'},{id:'j3',title:'Apply for First-Year Learning Community',desc:'Applications open June 1–July 2. Legit way to find your squad before September.',emoji:'🤝',xp:40,date:'Jun 1–Jul 2',quip:'Meet your study group before term. Smart play.'},{id:'j4',title:'Add Courses in Timetable Builder',desc:'Start building mock timetables in ACORN to prep for enrolment.',emoji:'📅',xp:50,date:'June',quip:'Treat your timetable like a game plan. Chef\'s kiss.'},{id:'j5',title:'Attend St. Mike\'s Welcome Day — June 13',desc:'Learn about course enrolment and getting ready for first year.',emoji:'⚜️',xp:70,date:'Jun 13',quip:'Show up. This is where real friendships start.'},{id:'j6',title:'Register with Accessibility Services (if needed)',desc:'For students with a disability, injury or mental health challenge.',emoji:'♿',xp:30,date:'June',quip:'Getting the right support is always a smart move.'}],july:[{id:'jl1',title:'Check Your Course Enrolment Date',desc:'Review your specific date and time in ACORN. Set a reminder — don\'t miss your window.',emoji:'⏰',xp:60,date:'July',quip:'Miss your window = 8am classes only. Nightmare fuel.'},{id:'jl2',title:'Enrol in Courses (Mid-July)',desc:'Use ACORN to select your courses. ECO101 first, electives after.',emoji:'🎓',xp:80,date:'Mid-July',quip:'ECO101 first. Always. Trust the process.'},{id:'jl3',title:'Activate UTORid and Get Your TCard',desc:'Your TCard is your key to everything on campus.',emoji:'🪪',xp:70,date:'July',quip:'No TCard = no access. Do this ASAP.'},{id:'jl4',title:'Sign Up for Orientation Week',desc:'Find details on St. Mike\'s website and register for Orientation Week.',emoji:'📝',xp:40,date:'July',quip:'Orientation week is a massive vibe. Register early.'}],august:[{id:'au1',title:'Pay or Defer Your Fees',desc:'Deadline August 11. Do not miss this — your enrollment depends on it.',emoji:'💰',xp:90,date:'Aug 11',quip:'Biggest play of pre-season. Don\'t fumble it.',urgent:true},{id:'au2',title:'Join or Lead a Recognized Study Group',desc:'Optional but a W for Economics — find your study crew before term.',emoji:'📚',xp:40,date:'August',quip:'Study groups carry you through midterms. Facts.'},{id:'au3',title:'Prepare to Move In',desc:'Check your residence website for move-in dates and instructions.',emoji:'📦',xp:60,date:'August',quip:'More socks than you think. Always.'},{id:'au4',title:'Get Excited for Orientation Week!',desc:'Full week — social nights, Clubs Fair, the big Cheer Off on Orientation Day.',emoji:'🎉',xp:50,date:'Late Aug',quip:'Your St. Mike\'s era officially begins here. SHOW UP.'}],september:[{id:'s1',title:'Attend Your First Day of Class 🎓',desc:'First day of Fall 2026 is September 8. Walk in like a #10 reading the field.',emoji:'🏟️',xp:100,date:'Sep 8',quip:'You made it. DEFY GRAVITY. Welcome to UofT, Will! 💙'},{id:'s2',title:'Stop by the A&S Welcome Fair',desc:'Sidney Smith Hall, first week of classes. Meet students, faculty, and services.',emoji:'🌟',xp:60,date:'Sep 8–12',quip:'Go to the fair. You\'ll thank yourself later.'}]};
+const TOTAL_XP=Object.values(TASKS).flat().reduce((s,t)=>s+t.xp,0);
+const TOTAL_TASKS=Object.values(TASKS).flat().length;
+const RANKS=[{min:0,name:'🏉 Rookie Prop'},{min:5,name:'⚡ Flanker Rising'},{min:10,name:'🎯 Lock Forward'},{min:15,name:'🔥 Openside Flanker'},{min:20,name:'⚜️ Elite Hooker'},{min:25,name:'🏆 #10 Fly-Half Legend'}];
+const PL={now:'🔴 Do Now',march:'📅 March',april:'📅 April',may:'📅 May',june:'📅 June',july:'📅 July',august:'📅 August',september:'🏟️ September'};
+let completed=new Set(JSON.parse(localStorage.getItem('stmikes-1015')||'[]'));
+function save(){localStorage.setItem('stmikes-1015',JSON.stringify([...completed]));}
+function getXP(){return Object.values(TASKS).flat().filter(t=>completed.has(t.id)).reduce((s,t)=>s+t.xp,0);}
+function getDone(){return completed.size;}
+function getRank(){const d=getDone();let r=RANKS[0];for(const k of RANKS){if(d>=k.min)r=k;}return r;}
+function getNextRank(){const d=getDone();for(const k of RANKS){if(d<k.min)return k;}return null;}
+function getPhasesCleared(){return Object.values(TASKS).filter(tasks=>tasks.every(t=>completed.has(t.id))).length;}
+function renderTask(t){const done=completed.has(t.id);return `<div class="task-card${done?' done':''}${t.urgent&&!done?' urgent':''}" id="card-${t.id}" onclick="toggleTask('${t.id}')"><div class="ti"><div class="tc-emoji">${t.emoji}</div><div class="tc-body"><div class="tc-title">${t.title}</div><div class="tc-desc">${t.desc}</div>${!done?`<div class="tc-quip">${t.quip}</div>`:''}<div class="tc-meta"><span class="tc-xp">+${t.xp} XP</span><span class="tc-date">📅 ${t.date}</span>${done?'<span class="tc-wb">✓ W secured!</span>':''}</div></div><div class="tc-check">${done?'✓':''}</div></div></div>`;}
+function renderAllTasks(){Object.entries(TASKS).forEach(([p,tasks])=>{const el=document.getElementById('tasks-'+p);if(el)el.innerHTML=tasks.map(renderTask).join('');});}
+const WINS=['Slay! W secured 🏉','Try scored! 🎯','Massive play! 🔥','Ate that, no crumbs 💅','Running the field! ⚡','Ball in hand! 🏟️','LET\'S GOOOO! +XP 🎉','That\'s the move ✅'];
+const UNDO=['Reversed… back on the bench 😬','Un-ticked. Walking it back.','Try disallowed! 😅'];
+function toggleTask(id){const wasDone=completed.has(id);wasDone?completed.delete(id):completed.add(id);save();let task;for(const tasks of Object.values(TASKS)){task=tasks.find(t=>t.id===id);if(task)break;}const el=document.getElementById('card-'+id);if(el&&task)el.outerHTML=renderTask(task);if(!wasDone)sprayConfetti();showToast(!wasDone?WINS[Math.floor(Math.random()*WINS.length)]:UNDO[Math.floor(Math.random()*UNDO.length)]);updateUI();}
+function updateUI(){
+  const xp=getXP(),done=getDone(),pct=Math.round((done/TOTAL_TASKS)*100),xpPct=Math.round((xp/TOTAL_XP)*100),rank=getRank(),next=getNextRank(),remaining=TOTAL_TASKS-done,phasesCleared=getPhasesCleared();
+  document.getElementById('xp-display').textContent=`${xp} / ${TOTAL_XP} XP`;
+  document.getElementById('xp-bar').style.width=xpPct+'%';
+  document.getElementById('rank-chip').textContent=rank.name;
+  document.getElementById('done-chip').textContent=`${done} tasks done`;
+  document.getElementById('db-xp-display').textContent=`${xp} / ${TOTAL_XP} XP`;
+  document.getElementById('db-xp-bar').style.width=xpPct+'%';
+  document.getElementById('ring-circle').style.strokeDashoffset=251.2-(251.2*pct/100);
+  document.getElementById('ring-pct').textContent=pct+'%';
+  document.getElementById('db-rank').textContent=rank.name;
+  document.getElementById('db-xp-big').innerHTML=`${xp} <span style="font-size:14px;color:var(--gray2);">XP</span>`;
+  document.getElementById('db-next-unlock').textContent=next?`${next.min-done} more tasks → ${next.name}`:'🏆 All ranks unlocked!';
+  document.getElementById('db-done').textContent=done;
+  document.getElementById('db-remaining').textContent=remaining;
+  document.getElementById('db-phases').textContent=`${phasesCleared}/8`;
+  document.getElementById('next-unlock-txt').textContent=next?`${next.min-done} more task${next.min-done!==1?'s':''} to unlock ${next.name}!`:'🏆 ALL RANKS UNLOCKED — ABSOLUTE LEGEND!';
+  const pb=document.getElementById('phase-breakdown');
+  if(pb){pb.innerHTML=Object.entries(TASKS).map(([p,tasks])=>{const pd=tasks.filter(t=>completed.has(t.id)).length,pp=Math.round((pd/tasks.length)*100),fc=pp===100?'var(--green2)':pp>50?'var(--teal2)':'var(--navy2)';return `<div class="pbd-row"><div class="pbd-head"><span class="pbd-nm">${PL[p]||p}</span><span class="pbd-ct">${pd}/${tasks.length}${pp===100?' ✓':''}</span></div><div class="pbd-track"><div class="pbd-fill" style="width:${pp}%;background:${fc};"></div></div></div>`;}).join('');}
+}
+function switchScreen(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('screen-'+name).classList.add('active');document.getElementById('nav-'+name).classList.add('active');window.scrollTo(0,0);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2400);}
+function sprayConfetti(){const cols=['#0D2145','#1A7A7A','#2AACAC','#FFFFFF','#163068','#229090'];for(let i=0;i<22;i++){const el=document.createElement('div');el.className='cfp';const sz=6+Math.random()*8;el.style.cssText=`left:${10+Math.random()*80}vw;top:0;background:${cols[Math.floor(Math.random()*cols.length)]};animation-delay:${Math.random()*0.45}s;animation-duration:${0.9+Math.random()*0.7}s;width:${sz}px;height:${sz}px;border-radius:${Math.random()>0.4?'50%':'3px'};`;document.body.appendChild(el);setTimeout(()=>el.remove(),1800);}}
+renderAllTasks();updateUI();
+</script>
+</body>
+</html>
